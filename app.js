@@ -5,6 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongodb = require('mongodb');
+var mongodb_url = process.env.MONGODB_URI;
+// var mongodb_user = process.env.MONGODB_USER;
+// var mongodb_pass = process.env.MONGODB_PASS;
+
+var MongoClient = mongodb.MongoClient;
+
+MongoClient.connect(mongodb_url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    console.log('Connection established to', mongodb_url);
+    db.close();
+  }
+});
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
